@@ -8,6 +8,12 @@ BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
+    # MongoDB 配置
+    MONGODB_SETTINGS = {'db': 'face_recognition_service',
+                        'host': '192.168.100.85',
+                        'port': 27017
+                        }
+
     # 日志目录
     LOG_FILE_PATH = '/Users/huan/sources/python-sources/face-recognition-service/face-recognition-service.log'
 

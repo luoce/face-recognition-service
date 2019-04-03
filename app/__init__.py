@@ -3,6 +3,9 @@
 
 from flask import Flask
 import logging
+
+from flask_mongoengine import MongoEngine
+
 from config import Config
 
 app = Flask(__name__, static_folder='../static/assets', template_folder='../templates')
@@ -17,7 +20,6 @@ app.logger.addHandler(handler)
 
 app.logger.setLevel(app.config['LOG_LEVEL'])
 
-
-
+db = MongoEngine(app)
 
 
