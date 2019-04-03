@@ -143,4 +143,4 @@ songkejun = {'name': u'宋克军', 'face_encoding': [[-0.13161796,  0.10392907, 
         0.00310254,  0.06694432, -0.18799348, -0.02902056,  0.08299443,
        -0.07836846,  0.13638377,  0.07030074]]}
 
-mock_array = [wangsicong, lingengxin]
+mock_array = [wangsicong, lingengxin, zhangman, songkejun]
