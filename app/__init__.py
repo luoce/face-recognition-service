@@ -3,8 +3,6 @@
 
 from flask import Flask
 import logging
-from flask_mongoengine import MongoEngine
-from flask_apscheduler import APScheduler
 from config import Config
 
 app = Flask(__name__, static_folder='../static/assets', template_folder='../templates')
