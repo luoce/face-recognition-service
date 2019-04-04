@@ -12,6 +12,7 @@ from models.face_dict import FaceDict
 from mongoengine import Q
 from werkzeug.utils import secure_filename
 
+
 # 判断文件格式是否在允许范围内
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
@@ -34,6 +35,7 @@ def upload_faceimg_to_init():
         return XaResult.error(0, u'不支持的文件格式')
 
     face_file_path = app.config['KNOW_FACE_DIR'] + '/' + name
+
     if not os.path.exists(face_file_path):
         os.makedirs(face_file_path)
 
@@ -42,6 +44,8 @@ def upload_faceimg_to_init():
     file_full_pash = os.path.join(face_file_path, to_save_file_name)
 
     faceimg.save(file_full_pash)
+
+    faceimg.seek(0, os.SEEK_SET)
 
     face_encoding = face_recognition.face_encodings(face_recognition.load_image_file(faceimg))
 
