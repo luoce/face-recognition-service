@@ -20,8 +20,10 @@
     3、安装pip
     4、安装cmake（建议3.x以上）
     5、安装dlib，安装步骤参见
-        https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf
-        若遇到问题，可参见https://rhodian.iteye.com/admin/blogs/2439706，希望可以解决问题
+        [https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf](https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf)
+        若遇到问题，可参见
+        [https://rhodian.iteye.com/admin/blogs/2439706](https://rhodian.iteye.com/admin/blogs/2439706)
+        希望可以解决问题
     6、使用pip安装face_recognition
     7、使用pip安装Flask、gunicorn（启动时如果还有依赖问题，请按依赖提示安装依赖模块）
         
