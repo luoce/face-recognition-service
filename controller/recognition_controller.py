@@ -39,17 +39,19 @@ def upload_faceimg_to_init():
 
     to_save_file_name = str(uuid.uuid1()) + '.' + faceimg.filename.rsplit('.', 1)[1].lower()
 
-    faceimg.save(os.path.join(face_file_path, to_save_file_name))
+    file_full_pash = os.path.join(face_file_path, to_save_file_name)
+
+    faceimg.save(file_full_pash)
 
     face_encoding = face_recognition.face_encodings(face_recognition.load_image_file(faceimg))
 
     extendFaceDict = FaceDict.objects(Q(name=name)).first()
 
     if extendFaceDict is None:
-        faceDict = FaceDict(name=name, faceEncoding=face_encoding, faceFilePath=face_file_path)
+        faceDict = FaceDict(name=name, faceEncoding=face_encoding, faceFilePath=file_full_pash)
         faceDict.save()
     else:
-        FaceDict.objects(name=name).update_one(faceEncoding=face_encoding, faceFilePath=face_file_path)
+        FaceDict.objects(name=name).update_one(faceEncoding=face_encoding, faceFilePath=file_full_pash)
 
     return XaResult.success(u'初始化成功')
 
