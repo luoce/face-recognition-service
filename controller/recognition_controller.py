@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
+import uuid
+
 from app import app
 from flask import Flask, jsonify, request, redirect
 from common.xa_result import XaResult
@@ -7,7 +10,7 @@ import face_recognition
 from mock import face_mock_dict
 from models.face_dict import FaceDict
 from mongoengine import Q
-
+from werkzeug.utils import secure_filename
 
 # 判断文件格式是否在允许范围内
 def allowed_file(filename):
@@ -30,15 +33,23 @@ def upload_faceimg_to_init():
     if not allowed_file(faceimg.filename):
         return XaResult.error(0, u'不支持的文件格式')
 
+    face_file_path = app.config['KNOW_FACE_DIR'] + '/' + name
+    if not os.path.exists(face_file_path):
+        os.makedirs(face_file_path)
+
+    to_save_file_name = str(uuid.uuid1()) + '.' + faceimg.filename.rsplit('.', 1)[1].lower()
+
+    faceimg.save(os.path.join(face_file_path, to_save_file_name))
+
     face_encoding = face_recognition.face_encodings(face_recognition.load_image_file(faceimg))
 
     extendFaceDict = FaceDict.objects(Q(name=name)).first()
 
     if extendFaceDict is None:
-        faceDict = FaceDict(name=name, faceEncoding=face_encoding)
+        faceDict = FaceDict(name=name, faceEncoding=face_encoding, faceFilePath=face_file_path)
         faceDict.save()
     else:
-        FaceDict.objects(name=name).update_one(faceEncoding=face_encoding)
+        FaceDict.objects(name=name).update_one(faceEncoding=face_encoding, faceFilePath=face_file_path)
 
     return XaResult.success(u'初始化成功')
 

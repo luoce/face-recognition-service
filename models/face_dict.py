@@ -9,3 +9,4 @@ from app import db
 class FaceDict(db.Document):
     name = db.StringField(max_length=255, required=True)
     faceEncoding = db.ListField()
+    faceFilePath = db.StringField()
